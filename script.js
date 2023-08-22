@@ -56,8 +56,11 @@ function parseChoise(choise){
             return 'scissors'
     }
 }
+
 function game(){
     for (let i = 0; i < 5; i++) {
         console.log(playRound(getPlayerSelection(), getComputerChoise()));
     }
 }
+
+game();

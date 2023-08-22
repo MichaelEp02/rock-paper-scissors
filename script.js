@@ -29,19 +29,35 @@ function getPlayerSelection(){
 }
 
 function playRound(playerSelection, computerSelection){
-
+    let outcome = 'default string'
+    if(playerSelection === computerSelection){
+        outcome = `tie ${parseChoise(playerSelection)} ties ${parseChoise(computerSelection)}`;
+        return outcome;
+    }
+    playerSelection++;
+    if(playerSelection == 4){
+        playerSelection = 0;
+    }
+    if(playerSelection == computerSelection)
+        outcome = `you lose ${parseChoise(computerSelection)} beats ${parseChoise(--playerSelection)}`
+    else if(playerSelection < computerSelection)
+        outcome = `you win ${parseChoise(--playerSelection)} beats ${parseChoise(computerSelection)}`
+    
+    return outcome;
 }
 
-function printChoise(choise){
+function parseChoise(choise){
     switch (choise){
         case 0:
-            console.log('rock');
-            break;
+            return 'rock'
         case 1:
-            console.log('paper');
-            break;
+            return 'paper'
         case 2:
-            console.log('scissors');
-            break;
+            return 'scissors'
+    }
+}
+function game(){
+    for (let i = 0; i < 5; i++) {
+        console.log(playRound(getPlayerSelection(), getComputerChoise()));
     }
 }

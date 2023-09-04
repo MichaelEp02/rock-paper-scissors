@@ -35,12 +35,20 @@ function playRound(playerSelection, computerSelection){
         return outcome;
     }
     playerSelection++;
-    if(playerSelection == 4){
+    if(playerSelection == 3){
         playerSelection = 0;
+        if(playerSelection == computerSelection){
+            outcome = `you lose ${parseChoise(computerSelection)} beats scissors`;
+            return outcome;
+        }
+        else{
+            outcome = `you win scissors beats ${parseChoise(computerSelection)}`;
+            return outcome;
+        }
     }
     if(playerSelection == computerSelection)
         outcome = `you lose ${parseChoise(computerSelection)} beats ${parseChoise(--playerSelection)}`
-    else if(playerSelection < computerSelection)
+    else
         outcome = `you win ${parseChoise(--playerSelection)} beats ${parseChoise(computerSelection)}`
     
     return outcome;
@@ -62,5 +70,3 @@ function game(){
         console.log(playRound(getPlayerSelection(), getComputerChoise()));
     }
 }
-
-game();

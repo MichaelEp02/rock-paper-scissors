@@ -3,21 +3,17 @@ function getComputerChoise(){
     return computerChoise;
 }
 
-function getPlayerSelection(){
-    let playerSelection = prompt('eneter your selection (rock, paper, scissors):') ;
-    let flag = true;
-    playerSelection = playerSelection.toLowerCase()
-    while(flag)
-    switch (playerSelection){
-        case 'rock':
+function getPlayerSelection(buttonID){
+    switch (buttonID){
+        case 'rock-button':
             playerSelection = 0;
             flag = false;
             break;
-        case 'paper':
+        case 'paper-button':
             playerSelection = 1;
             flag = false;
             break;
-        case 'scissors':
+        case 'scissors-button':
             playerSelection = 2;
             flag = false;
             break;
@@ -65,8 +61,29 @@ function parseChoise(choise){
     }
 }
 
-function game(){
-    for (let i = 0; i < 5; i++) {
-        console.log(playRound(getPlayerSelection(), getComputerChoise()));
-    }
-}
+let gameCounter = 0;
+let winCounter = 0;
+const div = document.querySelector('div');
+const buttons = document.querySelectorAll('button');
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+        div.innerText = playRound(getPlayerSelection(button.id) , getComputerChoise());
+        gameCounter++;
+        if(div.innerText.includes('win'))
+            winCounter++;
+        else if(div.innerText.includes('lose'))
+            winCounter--;
+        
+        if(gameCounter >= 5){
+            if(winCounter > 0)
+                div.innerText+='\nyou won the game';
+            else if(winCounter < 0)
+                div.innerText+='\nyou lost the game';
+            else
+                div.innerText+='\nthe game is a tie';
+                
+            gameCounter = 0;
+            winCounter = 0;
+        }
+    })
+})
